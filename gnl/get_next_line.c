@@ -55,7 +55,7 @@ char *get_next_line(int fd)
 	reader = 1;
 	while (!ft_check_ch(line) && reader != 0)
 	{
-		reader = read(fd, &buff, 1);
+		reader = read(fd, &buff, 1);\
 		if (reader <= 0)
 		{
 			if (reader == 0 || line[0] == '\0')
@@ -65,6 +65,7 @@ char *get_next_line(int fd)
 			}
 			return (line);
 		}
+		printf("buff %c\n", buff);
 		line = ft_last(line, buff);
 	}
 	return (line);
