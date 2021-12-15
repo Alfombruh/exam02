@@ -1,6 +1,5 @@
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 int ft_str(char *arg)
 {

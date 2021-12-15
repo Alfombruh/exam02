@@ -2,6 +2,17 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+int put_str(char *s)
+{
+	int size = 0;
+
+	if (s == NULL)
+		size += write(1, "(null)", 6);
+	while (s[size])
+		size += write(1, &s[size], 1);
+	return (size);
+}
+
 int put_nbr(int nbr)
 {
 	char c;
@@ -54,6 +65,8 @@ int ft_printf(const char *str, ...)
 				size += put_nbr(va_arg(op, int));
 			else if(str[i] == 'x')
 				size += put_hex(va_arg(op, int));
+			else if(str[i] == 's')
+				size += put_str(va_arg(op, char*));
 			i++;
 		}
 	}
@@ -63,7 +76,7 @@ int ft_printf(const char *str, ...)
 
 int main()
 {
-	printf("first one:%d\n",ft_printf("%x: ", 0));
-	printf("first one:%d\n",printf("%x: ", 0));
+	printf("first one:%d\n",ft_printf("%s: ", "todos a una puto osasuna"));
+	printf("first one:%d\n",printf("%s: ", "todos a una puto osasuna"));
 	return (0);
 }
