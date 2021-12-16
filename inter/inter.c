@@ -1,52 +1,27 @@
 #include <unistd.h>
 
-int ft_dups(char *str, int i)
+int ft_dups(char *str, char c, int i, int read_full)
 {
-	char c;
-
-	c = str[i];
-	while (--i >= 0)
-	{
-		if (str[i] == c)
+	int j = 0;
+	while((j < i|| read_full) && str[j])
+		if(str[j++] == c)
 			return (1);
-	}
 	return (0);
-}
-
-int ft_strchr(char c, char *str)
-{
-	while (*str)
-	{
-		if (*str == c)
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-void ft_inter(char *str, char *skr)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_strchr(str[i], skr))
-		{
-			if(!ft_dups(str, i))	
-				write(1, &str[i], sizeof(char));
-		}
-		i++;
-	}
-	write(1, "\n", 1);
 }
 
 int main(int argc, char **argv)
 {
-	if (argc == 1)
-		return (write(1, "\n", 1));
-	else if (argc != 3)
-		return (1);
-	ft_inter(argv[1], argv[2]);
+	int i = 0;
+	if(argc == 3)
+	{
+		while(argv[1][i])
+		{
+			if(!ft_dups(argv[1], argv[1][i], i, 0))
+				if(ft_dups(argv[2], argv[1][i], i, 1))
+					write(1, &argv[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
 	return (0);
 }
